@@ -1,0 +1,169 @@
+{
+  "status": "complete",
+  "started_utc": "2026-09-14T18:51:16.330050+00:00",
+  "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+  "machine": "arm64",
+  "processor": "arm",
+  "python": "3.14.5 (main, May 10 2026, 19:20:57) [Clang 22.1.3 ]",
+  "compiler": "Homebrew clang version 22.1.0\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /opt/homebrew/Cellar/llvm/22.1.0/bin\nConfiguration file: /opt/homebrew/etc/clang/arm64-apple-darwin25.cfg\n",
+  "build_command": [
+    "clang++",
+    "-std=c++17",
+    "-O3",
+    "-march=native",
+    "/Users/jun/Work/pj/llm-memory-layout-rs/src/kv_layout/benchmark.cpp",
+    "-o",
+    "/Users/jun/Work/pj/llm-memory-layout-rs/results/compiler-baseline/benchmark"
+  ],
+  "arguments": {
+    "s": [
+      128,
+      8192,
+      32768
+    ],
+    "h": [
+      1,
+      32
+    ],
+    "d": [
+      64,
+      128
+    ],
+    "trials": 10,
+    "target_ms": 20,
+    "seed": 0,
+    "cxx": "clang++",
+    "flags": "-std=c++17 -O3 -march=native",
+    "out": "/Users/jun/Work/pj/llm-memory-layout-rs/results/compiler-baseline"
+  },
+  "threads": 1,
+  "cache_mode": "repeated_buffer",
+  "atol": 0.0001,
+  "rtol": 0.0001,
+  "timing_scope": "qK dot only; excludes allocation, packing and validation",
+  "commands": [
+    [
+      "/Users/jun/Work/pj/llm-memory-layout-rs/results/compiler-baseline/benchmark",
+      "128",
+      "1",
+      "64",
+      "0",
+      "10",
+      "20",
+      "0"
+    ],
+    [
+      "/Users/jun/Work/pj/llm-memory-layout-rs/results/compiler-baseline/benchmark",
+      "128",
+      "1",
+      "128",
+      "0",
+      "10",
+      "20",
+      "0"
+    ],
+    [
+      "/Users/jun/Work/pj/llm-memory-layout-rs/results/compiler-baseline/benchmark",
+      "128",
+      "32",
+      "64",
+      "16",
+      "10",
+      "20",
+      "0"
+    ],
+    [
+      "/Users/jun/Work/pj/llm-memory-layout-rs/results/compiler-baseline/benchmark",
+      "128",
+      "32",
+      "128",
+      "16",
+      "10",
+      "20",
+      "0"
+    ],
+    [
+      "/Users/jun/Work/pj/llm-memory-layout-rs/results/compiler-baseline/benchmark",
+      "8192",
+      "1",
+      "64",
+      "0",
+      "10",
+      "20",
+      "0"
+    ],
+    [
+      "/Users/jun/Work/pj/llm-memory-layout-rs/results/compiler-baseline/benchmark",
+      "8192",
+      "1",
+      "128",
+      "0",
+      "10",
+      "20",
+      "0"
+    ],
+    [
+      "/Users/jun/Work/pj/llm-memory-layout-rs/results/compiler-baseline/benchmark",
+      "8192",
+      "32",
+      "64",
+      "16",
+      "10",
+      "20",
+      "0"
+    ],
+    [
+      "/Users/jun/Work/pj/llm-memory-layout-rs/results/compiler-baseline/benchmark",
+      "8192",
+      "32",
+      "128",
+      "16",
+      "10",
+      "20",
+      "0"
+    ],
+    [
+      "/Users/jun/Work/pj/llm-memory-layout-rs/results/compiler-baseline/benchmark",
+      "32768",
+      "1",
+      "64",
+      "0",
+      "10",
+      "20",
+      "0"
+    ],
+    [
+      "/Users/jun/Work/pj/llm-memory-layout-rs/results/compiler-baseline/benchmark",
+      "32768",
+      "1",
+      "128",
+      "0",
+      "10",
+      "20",
+      "0"
+    ],
+    [
+      "/Users/jun/Work/pj/llm-memory-layout-rs/results/compiler-baseline/benchmark",
+      "32768",
+      "32",
+      "64",
+      "16",
+      "10",
+      "20",
+      "0"
+    ],
+    [
+      "/Users/jun/Work/pj/llm-memory-layout-rs/results/compiler-baseline/benchmark",
+      "32768",
+      "32",
+      "128",
+      "16",
+      "10",
+      "20",
+      "0"
+    ]
+  ],
+  "commit": "48d7e9097350f8561f2ecbfe902e8341dd9fc885",
+  "git_status": "M README.md\n?? results/comparison/\n?? results/compiler-analysis/\n?? results/experiment-a-repeat1/\n?? results/experiment-a-repeat2/\n?? scripts/compare_runs.py",
+  "cpu_details": "Apple M1"
+}

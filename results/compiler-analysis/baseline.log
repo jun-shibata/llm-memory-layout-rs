@@ -1,0 +1,398 @@
+In file included from src/kv_layout/benchmark.cpp:8:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/random:1702:
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:182:17: remark: loop not vectorized: unsafe dependent memory operations in loop. Use #pragma clang loop distribute(enable) to allow loop distribution to attempt to isolate the offending operations into a separate loop
+Backward loop carried data dependence. Memory location is the same as accessed at /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:182:27 [-Rpass-analysis=loop-vectorize]
+  182 |       __x_[__i] = (__f * (__x_[__i - 1] ^ __rshift<__w - 2>(__x_[__i - 1])) + __i) & _Max;
+      |                 ^
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:181:5: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+  181 |     for (size_t __i = 1; __i < __n; ++__i)
+      |     ^
+src/kv_layout/benchmark.cpp:61:5: remark: loop not vectorized: value that could not be identified as reduction is used outside the loop [-Rpass-analysis=loop-vectorize]
+   61 |     for (auto& x: q) x = random_float();
+      |     ^
+In file included from src/kv_layout/benchmark.cpp:8:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/random:1702:
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:194:33: remark: loop not vectorized: cannot identify array bounds [-Rpass-analysis=loop-vectorize]
+  194 |     const result_type __yp   = (__x_[__i_] & ~__mask) | (__x_[__j] & __mask);
+      |                                 ^
+src/kv_layout/benchmark.cpp:61:5: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+   61 |     for (auto& x: q) x = random_float();
+      |     ^
+src/kv_layout/benchmark.cpp:64:9: remark: loop not vectorized: value that could not be identified as reduction is used outside the loop [-Rpass-analysis=loop-vectorize]
+   64 |         for (size_t d = 0; d < D; ++d) {
+      |         ^
+In file included from src/kv_layout/benchmark.cpp:8:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/random:1702:
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:194:33: remark: loop not vectorized: cannot identify array bounds [-Rpass-analysis=loop-vectorize]
+  194 |     const result_type __yp   = (__x_[__i_] & ~__mask) | (__x_[__j] & __mask);
+      |                                 ^
+src/kv_layout/benchmark.cpp:64:9: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+   64 |         for (size_t d = 0; d < D; ++d) {
+      |         ^
+src/kv_layout/benchmark.cpp:74:7: remark: vectorized loop (vectorization width: 4, interleaved count: 4) [-Rpass=loop-vectorize]
+   74 |       for (size_t d = 0; d < D; ++d) {
+      |       ^
+src/kv_layout/benchmark.cpp:86:7: remark: loop not vectorized: value that could not be identified as reduction is used outside the loop [-Rpass-analysis=loop-vectorize]
+   86 |       for (size_t s = 0; s < S; ++s) {
+      |       ^
+src/kv_layout/benchmark.cpp:86:7: remark: loop not vectorized: Cannot vectorize early exit loop with more than one early exit [-Rpass-analysis=loop-vectorize]
+src/kv_layout/benchmark.cpp:86:7: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+src/kv_layout/benchmark.cpp:86:7: remark: loop not vectorized: value that could not be identified as reduction is used outside the loop [-Rpass-analysis=loop-vectorize]
+src/kv_layout/benchmark.cpp:86:7: remark: loop not vectorized: Cannot vectorize early exit loop with more than one early exit [-Rpass-analysis=loop-vectorize]
+src/kv_layout/benchmark.cpp:86:7: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+src/kv_layout/benchmark.cpp:86:7: remark: loop not vectorized: value that could not be identified as reduction is used outside the loop [-Rpass-analysis=loop-vectorize]
+src/kv_layout/benchmark.cpp:86:7: remark: loop not vectorized: Cannot vectorize early exit loop with more than one early exit [-Rpass-analysis=loop-vectorize]
+src/kv_layout/benchmark.cpp:86:7: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+src/kv_layout/benchmark.cpp:97:9: remark: loop not vectorized: call instruction cannot be vectorized [-Rpass-analysis=loop-vectorize]
+   97 |         kernels[l](q.data(), data[l], out.data(), S, H, D, head);
+      |         ^
+src/kv_layout/benchmark.cpp:36:3: remark: loop not vectorized: call instruction cannot be vectorized [-Rpass-analysis=loop-vectorize]
+   36 |   asm volatile("" : : "r"(p) : "memory");
+      |   ^
+src/kv_layout/benchmark.cpp:96:7: remark: loop not vectorized: instruction cannot be vectorized [-Rpass-analysis=loop-vectorize]
+   96 |       for (size_t i = 0; i < iterations; ++i) {
+      |       ^
+src/kv_layout/benchmark.cpp:96:7: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+src/kv_layout/benchmark.cpp:97:9: remark: loop not vectorized: call instruction cannot be vectorized [-Rpass-analysis=loop-vectorize]
+   97 |         kernels[l](q.data(), data[l], out.data(), S, H, D, head);
+      |         ^
+src/kv_layout/benchmark.cpp:36:3: remark: loop not vectorized: call instruction cannot be vectorized [-Rpass-analysis=loop-vectorize]
+   36 |   asm volatile("" : : "r"(p) : "memory");
+      |   ^
+src/kv_layout/benchmark.cpp:96:7: remark: loop not vectorized: instruction cannot be vectorized [-Rpass-analysis=loop-vectorize]
+   96 |       for (size_t i = 0; i < iterations; ++i) {
+      |       ^
+src/kv_layout/benchmark.cpp:96:7: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+src/kv_layout/benchmark.cpp:97:9: remark: loop not vectorized: call instruction cannot be vectorized [-Rpass-analysis=loop-vectorize]
+   97 |         kernels[l](q.data(), data[l], out.data(), S, H, D, head);
+      |         ^
+src/kv_layout/benchmark.cpp:36:3: remark: loop not vectorized: call instruction cannot be vectorized [-Rpass-analysis=loop-vectorize]
+   36 |   asm volatile("" : : "r"(p) : "memory");
+      |   ^
+src/kv_layout/benchmark.cpp:96:7: remark: loop not vectorized: instruction cannot be vectorized [-Rpass-analysis=loop-vectorize]
+   96 |       for (size_t i = 0; i < iterations; ++i) {
+      |       ^
+src/kv_layout/benchmark.cpp:96:7: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+src/kv_layout/benchmark.cpp:97:9: remark: loop not vectorized: Loop contains an unsupported terminator [-Rpass-analysis=loop-vectorize]
+   97 |         kernels[l](q.data(), data[l], out.data(), S, H, D, head);
+      |         ^
+src/kv_layout/benchmark.cpp:36:3: remark: loop not vectorized: call instruction cannot be vectorized [-Rpass-analysis=loop-vectorize]
+   36 |   asm volatile("" : : "r"(p) : "memory");
+      |   ^
+src/kv_layout/benchmark.cpp:96:7: remark: loop not vectorized: Cannot vectorize early exit loop with complex writes to memory [-Rpass-analysis=loop-vectorize]
+   96 |       for (size_t i = 0; i < iterations; ++i) {
+      |       ^
+src/kv_layout/benchmark.cpp:96:7: remark: loop not vectorized: instruction cannot be vectorized [-Rpass-analysis=loop-vectorize]
+src/kv_layout/benchmark.cpp:96:7: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+src/kv_layout/benchmark.cpp:97:9: remark: loop not vectorized: Loop contains an unsupported terminator [-Rpass-analysis=loop-vectorize]
+   97 |         kernels[l](q.data(), data[l], out.data(), S, H, D, head);
+      |         ^
+src/kv_layout/benchmark.cpp:36:3: remark: loop not vectorized: call instruction cannot be vectorized [-Rpass-analysis=loop-vectorize]
+   36 |   asm volatile("" : : "r"(p) : "memory");
+      |   ^
+src/kv_layout/benchmark.cpp:96:7: remark: loop not vectorized: Cannot vectorize early exit loop with complex writes to memory [-Rpass-analysis=loop-vectorize]
+   96 |       for (size_t i = 0; i < iterations; ++i) {
+      |       ^
+src/kv_layout/benchmark.cpp:96:7: remark: loop not vectorized: instruction cannot be vectorized [-Rpass-analysis=loop-vectorize]
+src/kv_layout/benchmark.cpp:96:7: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+In file included from src/kv_layout/benchmark.cpp:1:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/algorithm:1915:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__algorithm/shuffle.h:16:
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:67:59: remark: loop not vectorized: Loop contains an unsupported terminator [-Rpass-analysis=loop-vectorize]
+   67 |   _LIBCPP_HIDE_FROM_ABI result_type operator()() { return __eval(integral_constant<bool, _Rp != 0>()); }
+      |                                                           ^
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:226:3: remark: loop not vectorized: loop induction variable could not be identified [-Rpass-analysis=loop-vectorize]
+  226 |   do {
+      |   ^
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:226:3: remark: loop not vectorized: Cannot vectorize early exit loop with more than one early exit [-Rpass-analysis=loop-vectorize]
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:226:3: remark: loop not vectorized: could not determine number of loop iterations [-Rpass-analysis=loop-vectorize]
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:226:3: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:67:59: remark: loop not vectorized: Loop contains an unsupported terminator [-Rpass-analysis=loop-vectorize]
+   67 |   _LIBCPP_HIDE_FROM_ABI result_type operator()() { return __eval(integral_constant<bool, _Rp != 0>()); }
+      |                                                           ^
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:226:3: remark: loop not vectorized: loop induction variable could not be identified [-Rpass-analysis=loop-vectorize]
+  226 |   do {
+      |   ^
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:226:3: remark: loop not vectorized: Cannot vectorize early exit loop with more than one early exit [-Rpass-analysis=loop-vectorize]
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:226:3: remark: loop not vectorized: could not determine number of loop iterations [-Rpass-analysis=loop-vectorize]
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:226:3: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+src/kv_layout/benchmark.cpp:39:5: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+   39 | int main(int argc, char** argv) {
+      |     ^
+In file included from src/kv_layout/benchmark.cpp:2:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/chrono:1161:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/forward_list:1613:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/functional:601:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/vector:314:
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__vector/vector.h:397:48: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+  397 |     return static_cast<size_type>(this->__cap_ - this->__begin_);
+      |                                                ^
+src/kv_layout/benchmark.cpp:39:5: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+   39 | int main(int argc, char** argv) {
+      |     ^
+src/kv_layout/benchmark.cpp:39:5: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+In file included from src/kv_layout/benchmark.cpp:2:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/chrono:1161:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/forward_list:1613:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/functional:601:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/vector:314:
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__vector/vector.h:397:48: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+  397 |     return static_cast<size_type>(this->__cap_ - this->__begin_);
+      |                                                ^
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__vector/vector.h:397:48: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__vector/vector.h:397:48: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+In file included from src/kv_layout/benchmark.cpp:1:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/algorithm:1915:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__algorithm/shuffle.h:16:
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:98:12: remark: Stores SLP vectorized with cost -1 and with tree size 2 [-Rpass=slp-vectorizer]
+   98 |   __mask0_ = __w0_ > 0 ? _Engine_result_type(~0) >> (_EDt - __w0_) : _Engine_result_type(0);
+      |            ^
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:76:18: remark: Stores SLP vectorized with cost -1 and with tree size 2 [-Rpass=slp-vectorizer]
+   76 |     : __e_(__e), __w_(__w) {
+      |                  ^
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:77:9: remark: Stores SLP vectorized with cost -1 and with tree size 2 [-Rpass=slp-vectorizer]
+   77 |   __n_  = __w_ / __m + (__w_ % __m != 0);
+      |         ^
+src/kv_layout/benchmark.cpp:39:5: note: could not determine the original source location for /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:0:0
+   39 | int main(int argc, char** argv) {
+      |     ^
+src/kv_layout/benchmark.cpp:39:5: remark: Stores SLP vectorized with cost -1 and with tree size 2 [-Rpass=slp-vectorizer]
+   39 | int main(int argc, char** argv) {
+      |     ^
+src/kv_layout/benchmark.cpp:39:5: note: could not determine the original source location for /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:0:0
+In file included from src/kv_layout/benchmark.cpp:1:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/algorithm:1915:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__algorithm/shuffle.h:16:
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:98:12: remark: Stores SLP vectorized with cost -1 and with tree size 2 [-Rpass=slp-vectorizer]
+   98 |   __mask0_ = __w0_ > 0 ? _Engine_result_type(~0) >> (_EDt - __w0_) : _Engine_result_type(0);
+      |            ^
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:76:18: remark: Stores SLP vectorized with cost -1 and with tree size 2 [-Rpass=slp-vectorizer]
+   76 |     : __e_(__e), __w_(__w) {
+      |                  ^
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:77:9: remark: Stores SLP vectorized with cost -1 and with tree size 2 [-Rpass=slp-vectorizer]
+   77 |   __n_  = __w_ / __m + (__w_ % __m != 0);
+      |         ^
+src/kv_layout/benchmark.cpp:39:5: note: could not determine the original source location for /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:0:0
+   39 | int main(int argc, char** argv) {
+      |     ^
+src/kv_layout/benchmark.cpp:39:5: remark: Stores SLP vectorized with cost -1 and with tree size 2 [-Rpass=slp-vectorizer]
+   39 | int main(int argc, char** argv) {
+      |     ^
+src/kv_layout/benchmark.cpp:39:5: note: could not determine the original source location for /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:0:0
+In file included from src/kv_layout/benchmark.cpp:1:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/algorithm:1865:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__algorithm/inplace_merge.h:28:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__memory/unique_temporary_buffer.h:17:
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__memory/allocator.h:141:5: remark: Stores SLP vectorized with cost -1 and with tree size 2 [-Rpass=slp-vectorizer]
+  141 |     ::new ((void*)__p) _Up(std::forward<_Args>(__args)...);
+      |     ^
+src/kv_layout/benchmark.cpp:39:5: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+   39 | int main(int argc, char** argv) {
+      |     ^
+src/kv_layout/benchmark.cpp:39:5: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+src/kv_layout/benchmark.cpp:39:5: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+src/kv_layout/benchmark.cpp:60:64: remark: List vectorization was possible but not beneficial with cost 0 >= 0 [-Rpass-missed=slp-vectorizer]
+   60 |     auto random_float = [&]() {return static_cast<float>(rng() >> 8) / 8388608.0f - 1.0f; };
+      |                                                                ^
+In file included from src/kv_layout/benchmark.cpp:8:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/random:1702:
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:304:17: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+  304 |     return (__x << __count) & _Max;
+      |                 ^
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:304:17: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:314:16: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+  314 |     return __x >> __count;
+      |                ^
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:196:42: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+  196 |     __x_[__i_]               = __x_[__k] ^ __rshift<1>(__yp) ^ (__a * (__yp & 1));
+      |                                          ^
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:194:68: remark: List vectorization was possible but not beneficial with cost 0 >= 0 [-Rpass-missed=slp-vectorizer]
+  194 |     const result_type __yp   = (__x_[__i_] & ~__mask) | (__x_[__j] & __mask);
+      |                                                                    ^
+src/kv_layout/benchmark.cpp:53:12: remark: Vectorizing horizontal reduction is possible but not beneficial with cost 5 and threshold 0 [-Rpass-missed=slp-vectorizer]
+   53 |     if (!S || !H || !D || !trials || !target_ms || head >= H)
+      |            ^
+src/kv_layout/benchmark.cpp:53:12: remark: Vectorizing horizontal reduction is possible but not beneficial with cost 5 and threshold 0 [-Rpass-missed=slp-vectorizer]
+src/kv_layout/benchmark.cpp:53:12: remark: Vectorizing horizontal reduction is possible but not beneficial with cost 10 and threshold 0 [-Rpass-missed=slp-vectorizer]
+src/kv_layout/benchmark.cpp:53:10: remark: List vectorization was possible but not beneficial with cost 0 >= 0 [-Rpass-missed=slp-vectorizer]
+   53 |     if (!S || !H || !D || !trials || !target_ms || head >= H)
+      |          ^
+src/kv_layout/benchmark.cpp:53:10: remark: List vectorization was possible but not beneficial with cost 0 >= 0 [-Rpass-missed=slp-vectorizer]
+src/kv_layout/benchmark.cpp:27:5: remark: vectorized loop (vectorization width: 4, interleaved count: 4) [-Rpass=loop-vectorize]
+   27 |     for (size_t d = 0; d < D; ++d) {
+      |     ^
+src/kv_layout/benchmark.cpp:27:5: remark: vectorized loop (vectorization width: 4, interleaved count: 4) [-Rpass=loop-vectorize]
+src/kv_layout/benchmark.cpp:27:5: remark: the cost-model indicates that vectorization is not beneficial [-Rpass-missed=loop-vectorize]
+src/kv_layout/benchmark.cpp:27:5: remark: the cost-model indicates that interleaving is not beneficial [-Rpass-missed=loop-vectorize]
+In file included from src/kv_layout/benchmark.cpp:2:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/chrono:1161:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/forward_list:1613:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/functional:601:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/vector:363:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/locale:199:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__locale_dir/money.h:20:
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__locale_dir/pad_and_output.h:58:26: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+   58 |   streamsize __np = __op - __ob;
+      |                          ^
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__locale_dir/pad_and_output.h:52:26: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+   52 |   streamsize __sz = __oe - __ob;
+      |                          ^
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__locale_dir/pad_and_output.h:59:12: remark: List vectorization was possible but not beneficial with cost 0 >= 0 [-Rpass-missed=slp-vectorizer]
+   59 |   if (__np > 0) {
+      |            ^
+In file included from src/kv_layout/benchmark.cpp:8:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/random:1702:
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:192:33: remark: loop not vectorized: value that could not be identified as reduction is used outside the loop [-Rpass-analysis=loop-vectorize]
+  192 |     const size_t __j         = (__i_ + 1) % __n;
+      |                                 ^
+In file included from src/kv_layout/benchmark.cpp:1:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/algorithm:1915:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__algorithm/shuffle.h:16:
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:113:5: remark: loop not vectorized: loop induction variable could not be identified [-Rpass-analysis=loop-vectorize]
+  113 |     do {
+      |     ^
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:113:5: remark: loop not vectorized: Cannot vectorize uncountable loop [-Rpass-analysis=loop-vectorize]
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:113:5: remark: loop not vectorized: could not determine number of loop iterations [-Rpass-analysis=loop-vectorize]
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:113:5: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+In file included from src/kv_layout/benchmark.cpp:8:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/random:1702:
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:192:33: remark: loop not vectorized: value that could not be identified as reduction is used outside the loop [-Rpass-analysis=loop-vectorize]
+  192 |     const size_t __j         = (__i_ + 1) % __n;
+      |                                 ^
+In file included from src/kv_layout/benchmark.cpp:1:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/algorithm:1915:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__algorithm/shuffle.h:16:
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:113:5: remark: loop not vectorized: loop induction variable could not be identified [-Rpass-analysis=loop-vectorize]
+  113 |     do {
+      |     ^
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:113:5: remark: loop not vectorized: Cannot vectorize uncountable loop [-Rpass-analysis=loop-vectorize]
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:113:5: remark: loop not vectorized: could not determine number of loop iterations [-Rpass-analysis=loop-vectorize]
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:113:5: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+In file included from src/kv_layout/benchmark.cpp:8:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/random:1702:
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:192:33: remark: loop not vectorized: value that could not be identified as reduction is used outside the loop [-Rpass-analysis=loop-vectorize]
+  192 |     const size_t __j         = (__i_ + 1) % __n;
+      |                                 ^
+In file included from src/kv_layout/benchmark.cpp:1:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/algorithm:1915:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__algorithm/shuffle.h:16:
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:124:5: remark: loop not vectorized: loop induction variable could not be identified [-Rpass-analysis=loop-vectorize]
+  124 |     do {
+      |     ^
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:124:5: remark: loop not vectorized: Cannot vectorize uncountable loop [-Rpass-analysis=loop-vectorize]
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:124:5: remark: loop not vectorized: could not determine number of loop iterations [-Rpass-analysis=loop-vectorize]
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:124:5: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+In file included from src/kv_layout/benchmark.cpp:8:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/random:1702:
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:192:33: remark: loop not vectorized: value that could not be identified as reduction is used outside the loop [-Rpass-analysis=loop-vectorize]
+  192 |     const size_t __j         = (__i_ + 1) % __n;
+      |                                 ^
+In file included from src/kv_layout/benchmark.cpp:1:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/algorithm:1915:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__algorithm/shuffle.h:16:
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:124:5: remark: loop not vectorized: loop induction variable could not be identified [-Rpass-analysis=loop-vectorize]
+  124 |     do {
+      |     ^
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:124:5: remark: loop not vectorized: Cannot vectorize uncountable loop [-Rpass-analysis=loop-vectorize]
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:124:5: remark: loop not vectorized: could not determine number of loop iterations [-Rpass-analysis=loop-vectorize]
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:124:5: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:108:58: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+  108 | _UIntType __independent_bits_engine<_Engine, _UIntType>::__eval(true_type) {
+      |                                                          ^
+In file included from src/kv_layout/benchmark.cpp:8:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/random:1702:
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:314:16: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+  314 |     return __x >> __count;
+      |                ^
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:304:17: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+  304 |     return (__x << __count) & _Max;
+      |                 ^
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:304:17: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:314:16: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+  314 |     return __x >> __count;
+      |                ^
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:196:42: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+  196 |     __x_[__i_]               = __x_[__k] ^ __rshift<1>(__yp) ^ (__a * (__yp & 1));
+      |                                          ^
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:194:68: remark: List vectorization was possible but not beneficial with cost 0 >= 0 [-Rpass-missed=slp-vectorizer]
+  194 |     const result_type __yp   = (__x_[__i_] & ~__mask) | (__x_[__j] & __mask);
+      |                                                                    ^
+In file included from src/kv_layout/benchmark.cpp:1:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/algorithm:1915:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__algorithm/shuffle.h:16:
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:108:58: remark: List vectorization was possible but not beneficial with cost 0 >= 0 [-Rpass-missed=slp-vectorizer]
+  108 | _UIntType __independent_bits_engine<_Engine, _UIntType>::__eval(true_type) {
+      |                                                          ^
+In file included from src/kv_layout/benchmark.cpp:8:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/random:1702:
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:314:16: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+  314 |     return __x >> __count;
+      |                ^
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:304:17: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+  304 |     return (__x << __count) & _Max;
+      |                 ^
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:304:17: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:314:16: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+  314 |     return __x >> __count;
+      |                ^
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:196:42: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+  196 |     __x_[__i_]               = __x_[__k] ^ __rshift<1>(__yp) ^ (__a * (__yp & 1));
+      |                                          ^
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:194:68: remark: List vectorization was possible but not beneficial with cost 0 >= 0 [-Rpass-missed=slp-vectorizer]
+  194 |     const result_type __yp   = (__x_[__i_] & ~__mask) | (__x_[__j] & __mask);
+      |                                                                    ^
+In file included from src/kv_layout/benchmark.cpp:1:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/algorithm:1915:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__algorithm/shuffle.h:16:
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:108:58: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+  108 | _UIntType __independent_bits_engine<_Engine, _UIntType>::__eval(true_type) {
+      |                                                          ^
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:108:58: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+In file included from src/kv_layout/benchmark.cpp:8:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/random:1702:
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:314:16: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+  314 |     return __x >> __count;
+      |                ^
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:304:17: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+  304 |     return (__x << __count) & _Max;
+      |                 ^
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:304:17: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:314:16: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+  314 |     return __x >> __count;
+      |                ^
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:196:42: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+  196 |     __x_[__i_]               = __x_[__k] ^ __rshift<1>(__yp) ^ (__a * (__yp & 1));
+      |                                          ^
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:194:68: remark: List vectorization was possible but not beneficial with cost 0 >= 0 [-Rpass-missed=slp-vectorizer]
+  194 |     const result_type __yp   = (__x_[__i_] & ~__mask) | (__x_[__j] & __mask);
+      |                                                                    ^
+In file included from src/kv_layout/benchmark.cpp:1:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/algorithm:1915:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__algorithm/shuffle.h:16:
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:108:58: remark: List vectorization was possible but not beneficial with cost 0 >= 0 [-Rpass-missed=slp-vectorizer]
+  108 | _UIntType __independent_bits_engine<_Engine, _UIntType>::__eval(true_type) {
+      |                                                          ^
+In file included from src/kv_layout/benchmark.cpp:8:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/random:1702:
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:314:16: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+  314 |     return __x >> __count;
+      |                ^
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:304:17: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+  304 |     return (__x << __count) & _Max;
+      |                 ^
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:304:17: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:314:16: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+  314 |     return __x >> __count;
+      |                ^
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:196:42: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+  196 |     __x_[__i_]               = __x_[__k] ^ __rshift<1>(__yp) ^ (__a * (__yp & 1));
+      |                                          ^
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/mersenne_twister_engine.h:194:68: remark: List vectorization was possible but not beneficial with cost 0 >= 0 [-Rpass-missed=slp-vectorizer]
+  194 |     const result_type __yp   = (__x_[__i_] & ~__mask) | (__x_[__j] & __mask);
+      |                                                                    ^
+In file included from src/kv_layout/benchmark.cpp:1:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/algorithm:1915:
+In file included from /opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__algorithm/shuffle.h:16:
+/opt/homebrew/Cellar/llvm/22.1.0/bin/../include/c++/v1/__random/uniform_int_distribution.h:108:58: remark: Cannot SLP vectorize list: vectorization was impossible with available vectorization factors [-Rpass-missed=slp-vectorizer]
+  108 | _UIntType __independent_bits_engine<_Engine, _UIntType>::__eval(true_type) {
+      |                                                          ^
