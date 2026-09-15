@@ -19,3 +19,7 @@ Data layout and data reuse can significantly affect LLM inference performance. T
 ---
 
 I investicated the impact of compiler auto-vectorization on each layout. With -O3, loads and multiplications were vectorized for SHD and HSD, while accumulation remained scalar. DSH used scalar operations, and its instruction sequence was unchanged when auto-vectorization was disabled. SHD and HSD had the same main inner-loop instruction structure, suggesting that their performance gap is related to differences in memory access patterns rather than vectorization.
+
+---
+
+In the qK dot product with a fixed single head, a performance degradation was observed at a sequence-direction stride of 16 KiB with S=8192 and D=128. Adjusting the interval by ±128 bytes resulted in the median performance improving to a level comparable to contiguous layout across all three measurements. These results suggest that performance depends not only on the stride magnitude but also on the address pattern.
