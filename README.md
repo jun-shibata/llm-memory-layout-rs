@@ -23,3 +23,8 @@ I investicated the impact of compiler auto-vectorization on each layout. With -O
 ---
 
 In the qK dot product with a fixed single head, a performance degradation was observed at a sequence-direction stride of 16 KiB with S=8192 and D=128. Adjusting the interval by ±128 bytes resulted in the median performance improving to a level comparable to contiguous layout across all three measurements. These results suggest that performance depends not only on the stride magnitude but also on the address pattern.
+
+---
+
+For S=32768 and D=128, shifting the sequence stride by ±128 bytes from 16 KiB reduced median execution time by approximately 20–25% across three runs. However, execution remained approximately 2.1–2.2 times slower than contiguous access.
+These results show that small stride changes can mitigate the slowdown, but do not identify its underlying cause. The contributions of cache conflicts, TLB behavior, prefetching, and memory pressure remain unresolved, as does the impact on full attention performance.
