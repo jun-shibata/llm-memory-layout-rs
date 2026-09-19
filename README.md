@@ -6,8 +6,8 @@ Data layout and data reuse can significantly affect LLM inference performance. T
 
  
  ## Performance Analysis of qK Dot‑Product Under SHD and HSD Layouts
- I measured the dot-product between $ q $ and $ K $ for a fixed single head using an identical loop order.
- When $ H = 1 $, the execution times of the SHD and HSD layouts were nearly indistinguishable. In contrast, for $ H > 1 $, the HSD layout consistently outperformed SHD, particularly for long sequence lengths. For instance, at $ S = 32768, H = 32 $, and $ D = 128 $, HSD achieved approximately **2.66x** shorter execution time.
+ I measured the dot-product between $q$ and $K$ for a fixed single head using an identical loop order.
+ When $H = 1$, the execution times of the SHD and HSD layouts were nearly indistinguishable. In contrast, for $H > 1$, the HSD layout consistently outperformed SHD, particularly for long sequence lengths. For instance, at S=32768, H=32, and D=128, HSD achieved approximately **2.66x** shorter execution time.
 
  These findings indicate that performance is influenced not only by continuity along the dot-product dimension but also by the data arrangement when traversing the same head across the sequence dimension. Nevertheless, identifying the precise contributing factors requires additional analysis of the generated instructions and memory access patterns. The present evaluation is limited to the $qK$ dot-product in isolation; its implications for the overall Attention computation or multi-head processing remain to be investigated.
 
