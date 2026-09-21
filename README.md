@@ -28,3 +28,28 @@ In the qK dot product with a fixed single head, a performance degradation was ob
 
 For S=32768 and D=128, shifting the sequence stride by ±128 bytes from 16 KiB reduced median execution time by approximately 20–25% across three runs. However, execution remained approximately 2.1–2.2 times slower than contiguous access.
 These results show that small stride changes can mitigate the slowdown, but do not identify its underlying cause. The contributions of cache conflicts, TLB behavior, prefetching, and memory pressure remain unresolved, as does the impact on full attention performance.
+
+---
+
+In the Multi-Head case as well, HSD was faster, but the effect of padding was limited to around 4%.
+
+| Layout | Execution time |
+| ---- | ---- |
+| HSD | 56.88 |
+| SHD | 165.42 |
+| padding SHD | 159.14 (-3.8%) |
+
+padding SHD / HSD = 2.8
+
+---
+
+Impact of Loop Order and Placement.
+
+| Layout | h -> s -> d [ms] | s -> h -> d [ms] |
+| ---- | ---- | ---- |
+| SHD | 163.82 ~ 165.91 | 57.31 ~ 57.62 |
+| padding 付き SHD | 158.86 ~ 159.14 | 57.24 ~ 57.67 |
+| HSD | 56.84 ~ 56.88 | 82.86 ~ 85.39 |
+
+While improvements due to padding were observed with a fixed loop order, the benefits of padding were no longer evident when the loop order was changed to one suitable for the specific layout. Therefore, padding must be evaluated in conjunction with the selection of the layout and execution order.
+
