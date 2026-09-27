@@ -1,55 +1,49 @@
-# LLM Memory Layout RS
+# Evaluating KV Cache Layout, Loop Order, and Padding on a CPU
 
-Data layout and data reuse can significantly affect LLM inference performance. This project uses CPU experiments to quantitatively investigate these effects in two stages.
-1. **KV cache layouts and loop ordering**: How do different combinations of physical KV cache layout and loop order affect performance across sequence lengths, head counts, and subsets of heads being processed?
-2. **Weight and activation tile reuse**: How should weight, activation, and output tiles be retained in fast memory to reduce total data movement and execution time, given the number of token rows processed and the available memory capacity? 
+## Objective
 
- 
- ## Performance Analysis of qK Dot‑Product Under SHD and HSD Layouts
- I measured the dot-product between $q$ and $K$ for a fixed single head using an identical loop order.
- When $H = 1$, the execution times of the SHD and HSD layouts were nearly indistinguishable. In contrast, for $H > 1$, the HSD layout consistently outperformed SHD, particularly for long sequence lengths. For instance, at S=32768, H=32, and D=128, HSD achieved approximately **2.66x** shorter execution time.
+This study investigates how the physical layout of the KV cache, loop order, and the range of heads processed affect qK execution time on a CPU. Generated assembly and available performance counters were also examined to investigate the effects of padding.
 
- These findings indicate that performance is influenced not only by continuity along the dot-product dimension but also by the data arrangement when traversing the same head across the sequence dimension. Nevertheless, identifying the precise contributing factors requires additional analysis of the generated instructions and memory access patterns. The present evaluation is limited to the $qK$ dot-product in isolation; its implications for the overall Attention computation or multi-head processing remain to be investigated.
+The experiments were conducted on macOS with an Apple M1. S denotes sequence length, H the number of heads, and D the head dimension.
 
- ## Memo
- I compared the execution times of the SHD, HSD, and DSH layouts for a single-head qK dot product. The figures show the median execution times with interquartile ranges (top) and the ratios of these medians to the corresponding HSD median within each run (bottom) across different sequence lengths.  
- HSD and SHD performed similarly when the number of heads was one. With multiple heads in the stored tensor, HSD generally outperformed SHD, with larger gaps observed at longer sequence lengths in the tested configurations. DSH was slower than both layouts across all tested configurations.  
- I will investigate whether differences in compiler optimizations, including vectorization, contribute to these performance differences.
+## 1. From Single-Head to Multi-Head Processing
 
----
+The initial single-head experiments compared SHD, HSD, and DSH layouts. Execution time varied with both layout and sequence length.
 
-I investicated the impact of compiler auto-vectorization on each layout. With -O3, loads and multiplications were vectorized for SHD and HSD, while accumulation remained scalar. DSH used scalar operations, and its instruction sequence was unchanged when auto-vectorization was disabled. SHD and HSD had the same main inner-loop instruction structure, suggesting that their performance gap is related to differences in memory access patterns rather than vectorization.
+Subsequent experiments focused on SHD and HSD, varying the access stride along the sequence dimension and introducing padding. These experiments showed that changing the stride affected performance, but the contributions of compiler optimizations and the memory hierarchy remained unresolved.
 
----
+Single-head processing does not access the other heads, so its layout ranking does not necessarily apply to all-head processing. We therefore compared two loop orders for processing all heads: h→s→d and s→h→d.
 
-In the qK dot product with a fixed single head, a performance degradation was observed at a sequence-direction stride of 16 KiB with S=8192 and D=128. Adjusting the interval by ±128 bytes resulted in the median performance improving to a level comparable to contiguous layout across all three measurements. These results suggest that performance depends not only on the stride magnitude but also on the address pattern.
+HSD was faster with h→s→d, whereas SHD and SHD_PAD were faster with s→h→d. Layout performance must therefore be evaluated together with the head range and loop order.
 
----
+[Insert single-head layout comparison figure](notes/kv-layout-loop-order/figures/h32_d128_head16_count1.svg)
 
-For S=32768 and D=128, shifting the sequence stride by ±128 bytes from 16 KiB reduced median execution time by approximately 20–25% across three runs. However, execution remained approximately 2.1–2.2 times slower than contiguous access.
-These results show that small stride changes can mitigate the slowdown, but do not identify its underlying cause. The contributions of cache conflicts, TLB behavior, prefetching, and memory pressure remain unresolved, as does the impact on full attention performance.
+[Insert multi-head comparison figure by loop order](notes/kv-layout-loop-order/figures/all-heads-loop-order-boxplot.svg)
 
----
+## 2. Effects of Padding
 
-In the Multi-Head case as well, HSD was faster, but the effect of padding was limited to around 4%.
+Using generated qK + softmax implementations, we varied sequence length and padding size while keeping H=8, D=128, and the intermediate score layout fixed to HS.
 
-| Layout | Execution time |
-| ---- | ---- |
-| HSD | 56.88 |
-| SHD | 165.42 |
-| padding SHD | 159.14 (-3.8%) |
+With h→s→d, the processing cost of padded layouts tended to increase as sequence length grew. With s→h→d, the cost remained comparatively stable. The difference persisted after dividing execution time by S, indicating that it could not be explained solely by the increase in the number of elements processed.
 
-padding SHD / HSD = 2.8
+The effects of padding depended on sequence length, padding size, and loop order. Changing the stride to avoid a particular access pattern did not necessarily improve performance.
 
----
+[Insert execution time / S figure by padding size](notes/kv-layout-loop-order/figures/normalized_cost.svg)
 
-Impact of Loop Order and Placement.
+## 3. Investigating the Performance Differences
 
-| Layout | h -> s -> d [ms] | s -> h -> d [ms] |
-| ---- | ---- | ---- |
-| SHD | 163.82 ~ 165.91 | 57.31 ~ 57.62 |
-| padding 付き SHD | 158.86 ~ 159.14 | 57.24 ~ 57.67 |
-| HSD | 56.84 ~ 56.88 | 82.86 ~ 85.39 |
+For the SHD and SHD_PAD assembly examined, the main computation was equivalent within each loop order. We found no evidence that differences in vector width or accumulation strategy alone explained the observed performance gap.
 
-While improvements due to padding were observed with a fixed loop order, the benefits of padding were no longer evident when the loop order was changed to one suitable for the specific layout. Therefore, padding must be evaluated in conjunction with the selection of the layout and execution order.
+L1D measurements showed more load misses per token for SHD_PAD with h→s→d. However, a substantial difference in miss counts was already present at S=2048, where the execution-time difference was small. The increase in execution time at larger sequence lengths could not be explained by the increase in L1D miss counts alone.
 
+For S=8192, L2 TLB measurements were repeated with a different execution order. SHD_PAD with h→s→d remained slower than SHD despite having fewer L2 TLB data misses per token. This result does not support the hypothesis that an increase in L2 TLB misses caused the slowdown introduced by padding.
+
+Absolute L2 TLB miss counts varied between measurement sessions. L2 data cache misses could not be measured, leaving the contributions of lower-level caches, prefetching, and memory-access concurrency unresolved.
+
+## Conclusions
+
+- KV layout performance depends on the combination of physical layout, the range of heads processed, and loop order.
+- Padding is condition-dependent and cannot be applied as a universally effective optimization.
+- Assembly inspection and performance counters narrowed the possible explanations, but did not establish the cause of the performance differences.
+
+These conclusions are limited to the CPU, tensor shapes, implementations, and measurement conditions evaluated. Timings collected with performance counters are treated separately from ordinary benchmark timings. Measurement intervals within a single process are also distinguished from independent process runs.
